@@ -13,6 +13,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@rushstack/eslint-patch": "^1.10.4",
+    "@supabase/supabase-js": "^2.43.4",
     "pinia": "^2.2.6",
     "unplugin-vue-router": "^0.10.8",
     "vue": "^3.5.12",
