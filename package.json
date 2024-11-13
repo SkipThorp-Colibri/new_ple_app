@@ -16,7 +16,9 @@
     "supabase:login": "supabase login",
     "supabase:link": "supabase link --project-ref jcokmwlwwvwdhzdfebde",
     "supabase:stop": "supabase stop",
-    "db:migrate:new": "supabase migration new projects-schema"
+    "db:migrate:new": "supabase migration new projects-schema",
+    "db:reset": "supabase db reset --linked",
+    "db:seed": "node --env-file=.env database/seed.js"
   },
   "dependencies": {
     "@rushstack/eslint-patch": "^1.10.4",
@@ -28,6 +30,7 @@
     "iconify-icon": "^2.1.0",
     "lucide-vue-next": "^0.456.0",
     "pinia": "^2.2.6",
+    "punycode": "^2.3.1",
     "radix-vue": "^1.9.9",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
