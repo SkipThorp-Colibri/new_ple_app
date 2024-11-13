@@ -14,7 +14,7 @@
     "supabase:init": "supabase init",
     "supabase:start": "supabase start",
     "supabase:login": "supabase login",
-    "supabase:link": "supabase link --project-ref inihkhqkmsbyofbrblal",
+    "supabase:link": "supabase link --project-ref jcokmwlwwvwdhzdfebde",
     "supabase:stop": "supabase stop"
   },
   "dependencies": {
