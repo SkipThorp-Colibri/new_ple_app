@@ -5,5 +5,5 @@ useErrorStore().setError({ error: 'Page not found', customCode: 404 })
 </script>
 
 <template>
-  <AppErrorPage.vue />
+  <AppErrorPage />
 </template>
