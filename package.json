@@ -16,10 +16,10 @@
     "supabase:login": "supabase login",
     "supabase:link": "supabase link --project-ref jcokmwlwwvwdhzdfebde",
     "supabase:stop": "supabase stop",
+    "supabase:types": "npx supabase gen types --lang=typescript --project-id jcokmwlwwvwdhzdfebde --schema public > database/types.ts",
     "db:migrate:new": "supabase migration new",
     "db:reset": "supabase db reset --linked",
-    "db:seed": "node --env-file=.env database/seed.js",
-    "supabase:types": "npx supabase gen types --lang=typescript --project-id jcokmwlwwvwdhzdfebde --schema public > database/types.ts"
+    "db:seed": "node --env-file=.env database/seed.js"
   },
   "dependencies": {
     "@rushstack/eslint-patch": "^1.10.4",
