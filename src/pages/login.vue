@@ -1,14 +1,26 @@
 <script setup lang="ts">
 import { login } from '@/utils/supaAuth'
+import { watchDebounced } from '@vueuse/core'
 
 const router = useRouter()
 
-const { serverError, handleServerError } = useFormErrors()
+const { serverError, handleServerError, realtimeErrors, handleLoginForm } = useFormErrors()
 
 const formData = ref({
   email: '',
   password: '',
 })
+
+watchDebounced(
+  formData,
+  () => {
+    handleLoginForm(formData.value)
+  },
+  {
+    debounce: 1000,
+    deep: true,
+  },
+)
 
 const signin = async () => {
   const { error } = await login(formData.value)
@@ -42,6 +54,11 @@ const signin = async () => {
               :class="{ 'border-red-500': serverError }"
             />
           </div>
+          <ul class="text-sm text-left text-red-500" v-if="realtimeErrors?.email.length">
+            <li class="list-disc" v-for="error in realtimeErrors.email" :key="error">
+              {{ error }}
+            </li>
+          </ul>
           <div class="grid gap-2">
             <div class="flex items-center">
               <Label id="password">Password</Label>
@@ -56,8 +73,10 @@ const signin = async () => {
               :class="{ 'border-red-500': serverError }"
             />
           </div>
-          <ul class="text-sm text-left text-red-500" v-if="serverError">
-            <li class="list-disc">{{ serverError }}</li>
+          <ul class="text-sm text-left text-red-500" v-if="realtimeErrors?.password.length">
+            <li class="list-disc" v-for="error in realtimeErrors.password" :key="error">
+              {{ error }}
+            </li>
           </ul>
           <Button type="submit" class="w-full"> Login </Button>
         </form>
