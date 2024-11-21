@@ -12,6 +12,7 @@ const getTasks = async () => {
   if (error) useErrorStore().setError({ error, customCode: status })
   tasks.value = data
 }
+
 await getTasks()
 </script>
 
