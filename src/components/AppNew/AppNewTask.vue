@@ -1,7 +1,41 @@
 <script setup lang="ts">
 import type { CreateNewTask } from '@/types/CreateNewForm'
+import { profilesQuery, projectsQuery } from '@/utils/supaQueries'
 
 const sheetOpen = defineModel<boolean>()
+
+const getProjectsOptions = async () => {
+  const { data: allProjects } = await projectsQuery
+
+  if (!allProjects) return
+
+  allProjects.forEach((project) => {
+    selectOptions.value.projects.push({
+      label: project.name,
+      value: project.id,
+    })
+  })
+}
+
+const getProfilesOptions = async () => {
+  const { data: allProfiles } = await profilesQuery
+
+  if (!allProfiles) return
+
+  allProfiles.forEach((profile) => {
+    selectOptions.value.profiles.push({
+      label: profile.full_name,
+      value: profile.id,
+    })
+  })
+}
+
+const getOptions = async () => {
+  await Promise.all([getProjectsOptions(), getProfilesOptions()])
+}
+
+getOptions()
+
 const createTask = async (formData: CreateNewTask) => {
   await new Promise((resolve) => {
     setTimeout(() => {
@@ -9,6 +43,13 @@ const createTask = async (formData: CreateNewTask) => {
     }, 2000)
   })
 }
+
+type SelectOption = { label: string; value: string | number }
+
+const selectOptions = ref({
+  projects: [] as SelectOption[],
+  profiles: [] as SelectOption[],
+})
 </script>
 <template>
   <Sheet v-model:open="sheetOpen">
@@ -24,7 +65,15 @@ const createTask = async (formData: CreateNewTask) => {
           id="for"
           label="For"
           placeholder="Select a user"
-          :options="[{ label: 'Item name', value: 1 }]"
+          :options="selectOptions.profiles"
+        />
+        <FormKit
+          type="select"
+          name="project"
+          id="project"
+          label="Project"
+          placeholder="Select a project"
+          :options="selectOptions.projects"
         />
         <FormKit
           type="textarea"
@@ -32,14 +81,6 @@ const createTask = async (formData: CreateNewTask) => {
           id="description"
           label="Description"
           placeholder="Task description"
-        />
-        <FormKit
-          type="select"
-          name="Project"
-          id="Project"
-          label="Project"
-          placeholder="Select a project"
-          :options="[{ label: 'Item name', value: 1 }]"
         />
       </FormKit>
     </SheetContent>
