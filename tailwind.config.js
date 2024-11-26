@@ -11,7 +11,7 @@ module.exports = {
     './components/**/*.{ts,tsx,vue}',
     './app/**/*.{ts,tsx,vue}',
     './src/**/*.{ts,tsx,vue}',
-    './formkit.them.ts',
+    './formkit.theme.ts',
   ],
 
   theme: {
