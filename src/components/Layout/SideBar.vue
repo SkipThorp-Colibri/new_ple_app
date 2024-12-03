@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SidebarLinks from './SidebarLinks.vue'
 import { Button } from '@/components/ui/button'
+import { menuKey, type MenuInjectionOptions } from '@/utils/injectionKeys'
 import { useWindowSize } from '@vueuse/core'
 
 const links = [
@@ -44,7 +45,7 @@ const executeAction = async (linkTitle: string) => {
 }
 defineEmits(['taskClicked'])
 
-const { menuOpen, toggleMenu } = useMenu()
+const { menuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions
 const windowWidth = useWindowSize().width
 
 watchEffect(() => {
