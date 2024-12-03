@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppErrorPage from '@/components/AppError/AppErrorPage.vue'
 import { supabase } from './lib/supabaseClient'
+import { Component } from 'lucide-vue-next'
 
 const errorStore = useErrorStore()
 
@@ -12,11 +13,14 @@ onMounted(() => {
   useAuthStore().trackAuthChanges()
 })
 
-onMounted(async () => {})
+const { user } = storeToRefs(useAuthStore())
+
+const AuthLayout = defineAsyncComponent(() => import('./components/Layout/main/AuthLayout.vue'))
+const GuestLayout = defineAsyncComponent(() => import('./components/Layout/main/GuestLayout.vue'))
 </script>
 
 <template>
-  <AuthLayout>
+  <Component :is="user ? AuthLayout : GuestLayout">
     <AppErrorPage v-if="errorStore.activeError" />
 
     <RouterView v-else v-slot="{ Component, route }">
@@ -28,5 +32,5 @@ onMounted(async () => {})
         </template>
       </Suspense>
     </RouterView>
-  </AuthLayout>
+  </Component>
 </template>
