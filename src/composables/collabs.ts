@@ -1,6 +1,6 @@
 import { groupedProfilesQuery } from '@/utils/supaQueries'
 import type { GroupedCollabs } from '@/types/groupedCollabs'
-import type { Projects, TasksWithProjects } from '@/utils/supaQueries'
+import type { Projects, ReportsWithProjects } from '@/utils/supaQueries'
 
 export const useCollabs = () => {
   const groupedCollabs = ref<GroupedCollabs>({})
@@ -12,7 +12,7 @@ export const useCollabs = () => {
 
     return data
   }
-  const getGroupedCollabs = async (items: Projects | TasksWithProjects) => {
+  const getGroupedCollabs = async (items: Projects | ReportsWithProjects) => {
     const filteredItems = items.filter((item) => item.collaborators.length)
 
     const promises = filteredItems.map((item) => getProfilesByIds(item.collaborators))

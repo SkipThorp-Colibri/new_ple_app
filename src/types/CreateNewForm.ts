@@ -1,4 +1,4 @@
-export interface CreateNewTask {
+export interface CreateNewReport {
   name: string
   description: string
   project_id: number

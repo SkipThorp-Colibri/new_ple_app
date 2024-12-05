@@ -16,8 +16,8 @@ const links = [
     icon: 'lucide:building',
   },
   {
-    title: 'My Tasks',
-    to: '/tasks',
+    title: 'My Reports',
+    to: '/reports',
     icon: 'lucide:badge-check',
   },
 ]
@@ -43,7 +43,7 @@ const executeAction = async (linkTitle: string) => {
     if (isLoggedOut) router.push('/login')
   }
 }
-defineEmits(['taskClicked'])
+defineEmits(['reportClicked'])
 
 const { menuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions
 const windowWidth = useWindowSize().width
@@ -73,7 +73,7 @@ watchEffect(() => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem @click="$emit('taskClicked')"> Task </DropdownMenuItem>
+          <DropdownMenuItem @click="$emit('reportClicked')"> Report </DropdownMenuItem>
           <DropdownMenuItem> Project </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

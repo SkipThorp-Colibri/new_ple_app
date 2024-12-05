@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { CreateNewTask } from '@/types/CreateNewForm'
-import { createNewTaskQuery, profilesQuery, projectsQuery } from '@/utils/supaQueries'
+import type { CreateNewReport } from '@/types/CreateNewForm'
+import { createNewReportQuery, profilesQuery, projectsQuery } from '@/utils/supaQueries'
 
 const sheetOpen = defineModel<boolean>()
 
@@ -38,13 +38,13 @@ getOptions()
 
 const { profile } = storeToRefs(useAuthStore())
 
-const createTask = async (formData: CreateNewTask) => {
-  const task = {
+const createReport = async (formData: CreateNewReport) => {
+  const report = {
     ...formData,
     collaborators: [profile.value!.id],
   }
 
-  const { error } = await createNewTaskQuery(task)
+  const { error } = await createNewReportQuery(report)
 
   if (error) {
     console.log(error)
@@ -64,12 +64,12 @@ const selectOptions = ref({
   <Sheet v-model:open="sheetOpen">
     <SheetContent>
       <SheetHeader>
-        <SheetTitle>Create new task</SheetTitle>
+        <SheetTitle>Create new report</SheetTitle>
       </SheetHeader>
       <FormKit
         type="form"
-        @submit="createTask"
-        submit-label="Create task"
+        @submit="createReport"
+        submit-label="Create report"
         :config="{
           validationVisibility: 'submit',
         }"
@@ -79,7 +79,7 @@ const selectOptions = ref({
           name="name"
           id="name"
           label="Name"
-          placeholder="My new task"
+          placeholder="My new report"
           validation="required|length:1,255"
         />
         <FormKit
@@ -105,7 +105,7 @@ const selectOptions = ref({
           name="description"
           id="description"
           label="Description"
-          placeholder="Task description"
+          placeholder="Report description"
           validation="length:0,500"
         />
       </FormKit>

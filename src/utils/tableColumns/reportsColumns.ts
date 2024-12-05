@@ -1,5 +1,5 @@
 import type { ColumnDef } from '@tanstack/vue-table'
-import type { TasksWithProjects } from '../supaQueries'
+import type { ReportsWithProjects } from '../supaQueries'
 import { RouterLink } from 'vue-router'
 import Avatar from '@/components/ui/avatar/Avatar.vue'
 import AvatarImage from '@/components/ui/avatar/AvatarImage.vue'
@@ -7,7 +7,7 @@ import AvatarFallback from '@/components/ui/avatar/AvatarFallback.vue'
 import AppInPlaceEditStatus from '@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue'
 import type { GroupedCollabs } from '@/types/groupedCollabs'
 
-export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<TasksWithProjects[0]>[] => [
+export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<ReportsWithProjects[0]>[] => [
   {
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
@@ -15,7 +15,7 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<TasksWithProjec
       return h(
         RouterLink,
         {
-          to: `/tasks/${row.original.id}`,
+          to: `/reports/${row.original.id}`,
           class: 'text-left font-medium hover:bg-muted block w-full',
         },
         row.getValue('name'),

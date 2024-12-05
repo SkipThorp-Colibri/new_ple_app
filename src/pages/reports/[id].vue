@@ -1,54 +1,54 @@
 <script setup lang="ts">
-const { id } = useRoute('/tasks/[id]').params
+const { id } = useRoute('/reports/[id]').params
 
-const tasksLoader = useTasksStore()
-const { task } = storeToRefs(tasksLoader)
-const { getTask, updateTask, deleteTask } = tasksLoader
+const reportsLoader = useReportsStore()
+const { report } = storeToRefs(reportsLoader)
+const { getReport, updateReport, deleteReport } = reportsLoader
 
 watch(
-  () => task.value?.name,
+  () => report.value?.name,
   () => {
-    usePageStore().pageData.title = `Task: ${task.value?.name || ''}`
+    usePageStore().pageData.title = `Report: ${report.value?.name || ''}`
   },
 )
 
-await getTask(id)
+await getReport(id)
 
 const { getProfilesByIds } = useCollabs()
 
-const collabs = task.value?.collaborators ? await getProfilesByIds(task.value?.collaborators) : []
+const collabs = report.value?.collaborators ? await getProfilesByIds(report.value?.collaborators) : []
 const deleteLoading = ref(false)
 const router = useRouter()
 const triggerDelete = async () => {
   deleteLoading.value = true
-  await deleteTask()
+  await deleteReport()
   deleteLoading.value = false
-  router.push({ name: '/tasks/' })
+  router.push({ name: '/reports/' })
 }
 </script>
 <template>
   <div class="flex flex-col justify-center items-center">
-    <Table v-if="task">
+    <Table v-if="report">
       <TableRow>
         <TableHead> Name </TableHead>
         <TableCell>
-          <AppInPlaceEditText v-model="task.name" @commit="updateTask" />
+          <AppInPlaceEditText v-model="report.name" @commit="updateReport" />
         </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Description </TableHead>
         <TableCell>
-          <AppInPlaceEditTextarea class="h-20" v-model="task.description" @commit="updateTask" />
+          <AppInPlaceEditTextarea class="h-20" v-model="report.description" @commit="updateReport" />
         </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Project </TableHead>
-        <TableCell>{{ task.projects?.name }}</TableCell>
+        <TableCell>{{ report.projects?.name }}</TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Status </TableHead>
         <TableCell>
-          <AppInPlaceEditStatus v-model="task.status" @commit="updateTask" />
+          <AppInPlaceEditStatus v-model="report.status" @commit="updateReport" />
         </TableCell>
       </TableRow>
       <TableRow>
@@ -114,7 +114,7 @@ const triggerDelete = async () => {
         <iconify-icon v-else icon="lucide:trash-2" class="mr-1"></iconify-icon>
       </Transition>
 
-      Delete Task
+      Delete Report
     </Button>
   </div>
 </template>

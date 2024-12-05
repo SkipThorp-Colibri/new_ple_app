@@ -69,7 +69,7 @@ export type Database = {
         }
         Relationships: []
       }
-      tasks: {
+      reports: {
         Row: {
           collaborators: string[]
           created_at: string
@@ -105,14 +105,14 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "tasks_profile_id_fkey"
+            foreignKeyName: "reports_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "tasks_project_id_fkey"
+            foreignKeyName: "reports_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"

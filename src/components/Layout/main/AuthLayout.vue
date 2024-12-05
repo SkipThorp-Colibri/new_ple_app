@@ -4,7 +4,7 @@ import Sidebar from '@/components/Layout/SideBar.vue'
 import { menuKey } from '@/utils/injectionKeys'
 
 const { pageData } = storeToRefs(usePageStore())
-const taskSheetOpen = ref(false)
+const reportSheetOpen = ref(false)
 const menuOpen = ref(false)
 const toggleMenu = () => (menuOpen.value = !menuOpen.value)
 
@@ -16,8 +16,8 @@ provide(menuKey, {
 
 <template>
   <div>
-    <Sidebar @taskClicked="taskSheetOpen = true" />
-    <AppNewTask v-model="taskSheetOpen" />
+    <Sidebar @reportClicked="reportSheetOpen = true" />
+    <AppNewReport v-model="reportSheetOpen" />
     <div
       class="flex flex-col transition-[margin]"
       :class="{ 'ml-52': menuOpen, 'ml-24': !menuOpen }"

@@ -65,7 +65,7 @@ const collabs = project.value?.collaborators
 
     <section v-if="project" class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow">
       <div class="flex-1">
-        <h2>Tasks</h2>
+        <h2>Reports</h2>
         <div class="table-container">
           <Table>
             <TableHeader>
@@ -76,18 +76,18 @@ const collabs = project.value?.collaborators
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow v-for="task in project.tasks" :key="task.id">
+              <TableRow v-for="report in project.reports" :key="report.id">
                 <TableCell class="p-0"
                   ><RouterLink
                     class="text-left block hover:bg-muted p-4"
-                    :to="{ name: '/tasks/[id]', params: { id: task.id } }"
-                    >{{ task.name }}</RouterLink
+                    :to="{ name: '/reports/[id]', params: { id: report.id } }"
+                    >{{ report.name }}</RouterLink
                   >
                 </TableCell>
                 <TableCell>
-                  <AppInPlaceEditStatus readonly :modelValue="task.status" />
+                  <AppInPlaceEditStatus readonly :modelValue="report.status" />
                 </TableCell>
-                <TableCell> {{ task.due_date }} </TableCell>
+                <TableCell> {{ report.due_date }} </TableCell>
               </TableRow>
             </TableBody>
           </Table>
